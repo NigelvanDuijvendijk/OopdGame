@@ -14,7 +14,7 @@ public class Bat extends Animal {
 	/**
 	 * the speed at which the bat moves
 	 */
-	private static int speed = 3;
+	private static int speed = 8;
 	/**
 	 * initialises the bat object
 	 * @param world the world the bat should be added in

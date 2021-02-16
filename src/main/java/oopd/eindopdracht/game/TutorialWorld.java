@@ -14,7 +14,7 @@ import processing.core.PApplet;
 
 /**
  * The main world of the game where everything gets added in.
- * 
+ *
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
@@ -35,8 +35,10 @@ public class TutorialWorld extends GameEngine {
 	private TextObject startTextPlaats;
 	private TextObject startTextDuw;
 	public TextObject timerText;
-	
-	
+	public Animal[] dier;
+
+
+
 
 	private ArrayList<BasicSpawner> spawners = new ArrayList<BasicSpawner>();
 
@@ -190,7 +192,7 @@ public class TutorialWorld extends GameEngine {
 
 	/**
 	 * initilizes a tilemap
-	 * 
+	 *
 	 * @param tileMapNew the tilemap that needs to be initialized
 	 */
 	protected void initializeTileMap(int[][] tileMapNew) {
@@ -206,7 +208,7 @@ public class TutorialWorld extends GameEngine {
 	/**
 	 * creates the dashboard for the start screen this will also add all the text to
 	 * the screen
-	 * 
+	 *
 	 * @param worldWidth  width of the dashboard
 	 * @param worldHeight height of the dashboard
 	 */
@@ -233,51 +235,41 @@ public class TutorialWorld extends GameEngine {
 		dashboardStart.addGameObject(startTextPlaats, 340, 450, 100);
 		dashboardStart.addGameObject(startTextDuw, 370, 400, 100);
 
-		addDashboard(dashboardStart);
+	    addDashboard(dashboardStart);
+     }
+
+    /**
+     * Will delete all the text from the dashboard.
+     * This will be triggered when a player presses a button in the start screen
+     */
+    public void deleteStartDashboard(){
+    	 dashboardStart.deleteGameObject(headText);
+         dashboardStart.deleteGameObject(startText);
+         dashboardStart.deleteGameObject(startTextPijlen);
+         dashboardStart.deleteGameObject(startTextDelete);
+         dashboardStart.deleteGameObject(startTextPlaats);
+         dashboardStart.deleteGameObject(startTextDuw);
+    }
+
+    public void mousePressed() {
+	    	if(gameState == 0) {
+	    		initializeObjects();
+	            gameState = 1;
+	            deleteStartDashboard();
+	    	}
+	    	if(gameState == 2) {
+	    		gameover = new GameOver(this);
+	    		gameover.triggerReplay();
+	    		initializeObjects();
+	    	}
+    }
+
+	public int getWorldWidth() {
+		return worldWidth;
 	}
 
-	/**
-	 * Will delete all the text from the dashboard. This will be triggered when a
-	 * player presses a button in the start screen
-	 */
-	public void deleteStartDashboard() {
-		dashboardStart.deleteGameObject(headText);
-		dashboardStart.deleteGameObject(startText);
-		dashboardStart.deleteGameObject(startTextPijlen);
-		dashboardStart.deleteGameObject(startTextDelete);
-		dashboardStart.deleteGameObject(startTextPlaats);
-		dashboardStart.deleteGameObject(startTextDuw);
+	public int getWorldHeight() {
+		return worldHeight;
 	}
 
-	public void mousePressed() {
-		
-		if (gameState == 0) {
-			initializeObjects();
-			gameState = 1;
-			deleteStartDashboard();
-			for (BasicSpawner spawners : spawners) {
-				spawners.startAlarm();
-			}
-			
-		}
-		if (gameState == 2) {
-			gameover = new GameOver(this);
-			gameover.triggerReplay();
-			initializeObjects();
-		}
-	}
-	
-	
-	public void addBatSpawner() {
-		spawners.add(batSpawner);
-		batSpawner.startAlarm();
-	}
-	
-	public void removeAllBats() {
-		spawners.clear();
-		spawners.add(fireflySpawner);
-		fireflySpawner.startAlarm();
-	}
-	
-
-}
+ }
