@@ -19,50 +19,27 @@ import processing.core.PVector;
  */
 public class DarkPower extends PhysicsObject implements ICollidableWithGameObjects, ICollidableWithTiles {
    
-	private GameWorld world;
-    protected Boolean CollidedWithSelf;
-    /**
-     * The amount of gravity darkpower has. Higher means it drops faster.
-     */
-    private float gravity = 0.2f;
-    /**
-     * Speed at which the darpower slides
-     */
-    private final int speed = 3;
-    /**
-     * distance from the player at which the darkpower spawns
-     */
+//	private GameWorld world;
+//    protected Boolean CollidedWithSelf;
+//    /**
+//     * The amount of gravity darkpower has. Higher means it drops faster.
+//     */
+//    private float gravity = 0.2f;
+//    /**
+//     * Speed at which the darpower slides
+//     */
+//    private final int speed = 3;
+//    /**
+//     * distance from the player at which the darkpower spawns
+//     */
     private final int darkPowerDistance = 80;
 
     
-    public DarkPower(GameWorld world, boolean collidedWithSelf) {
-        super(new Sprite(GameWorld.MEDIA_URL.concat("darkPower.png")));
-        this.world = world;
-        this.CollidedWithSelf = false;
-        
-        setGravity(gravity);
-        setFriction(0.05f);
-
-    }
-
-    @Override
-    public void update() {
-        if (getX() + getWidth() <= 0) {
-            setX(world.width);
-        }
-        
+    public DarkPower(GameWorld world, float gravity, boolean collide, int speed, String sprite) {        
+        super(world, gravity, collide, speed, "darkPower.png");
     }
     
-    public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
-		for (GameObject go: collidedGameObjects) {
-			if (go instanceof DarkPower) {	
-                    float vector = this.getY();
-	                setY(vector - 3.8f);
-	                setX(this.getX());
-	                CollidedWithSelf = true;   
-			}
-		}
-	}
+
     
     /**
      * will spawn a darkpower block
@@ -71,7 +48,7 @@ public class DarkPower extends PhysicsObject implements ICollidableWithGameObjec
      * @param direction the direction that the darkpower should be placed in. Either Left or Right.
      */
     public void spawnDarkPower(float playerX, float playerY, String direction) {
-    	DarkPower darkpower = new DarkPower(world, false);
+    	DarkPower darkpower = new DarkPower(world, 0.2f, true, 3, "darkPower.png");
     	if(direction == "left") {
     		world.addGameObject(darkpower, playerX - darkPowerDistance, playerY - darkPowerDistance);
     	}else if(direction == "right") {
@@ -79,18 +56,6 @@ public class DarkPower extends PhysicsObject implements ICollidableWithGameObjec
     	}
     }
 
-    public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {
-        PVector vector;
-        for (CollidedTile ct : collidedTiles) {
-            if (ct.getTile() instanceof FloorTile) {
-                try {					
-                    vector = world.getTileMap().getTilePixelLocation(ct.getTile());
-                    setY(vector.y - getHeight());
-                } catch (TileNotFoundException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-      
-    }
+    
+
 }

@@ -28,6 +28,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Firefly firefly;
 	private GameOver gameover;
 	private DarkPower DarkPowerColided;
+    private LevelPhysicsObject physObject;
 	private Animal animal;
 	/**
      * The sound for the player jump action
@@ -183,12 +184,16 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 				if(getAngleFrom(go) > 200 ) {
 	                colideAngleDarkPower = "right";
 	                this.setX(this.prevX +0.2f);
-	                DarkPowerColided = (DarkPower) go;
+	                if(go instanceof DarkPower) {
+	                	DarkPowerColided = (DarkPower) go;
+	                }
 				}
 				else if(getAngleFrom(go) < 200 ) {
 					colideAngleDarkPower = "left";
 	                this.setX(this.prevX -0.2f);
-	                DarkPowerColided = (DarkPower) go;
+	                if(go instanceof DarkPower) {
+	                	DarkPowerColided = (DarkPower) go;
+	                }
 				}
 				else if(getAngleFrom(go) < 180 && getAngleFrom(go) > 130 ) {
 	                this.setY(this.prevY -0.2f);
@@ -197,6 +202,10 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 			if (go instanceof Firefly) {	
 				firefly = new Firefly(world);
 				firefly.ifTouched();
+			}
+			if (go instanceof LevelPhysicsObject) {	
+		        physObject = new LevelPhysicsObject(world, 0.2f, true, 3, "PhysObject.png");         
+				physObject.ifTouched();
 			}
 		}
 	}

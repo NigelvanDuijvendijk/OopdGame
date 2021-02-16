@@ -20,6 +20,8 @@ import java.util.ArrayList;
 public class GameWorld extends GameEngine {
     private Player player;
     private DarkPower darkpower;
+    private LevelPhysicsObject physObject;
+    private LevelPhysicsObject physObject2;
     private BatSpawner batSpawner;
     private FireflySpawner fireflySpawner;
     private GameOver gameover;
@@ -153,7 +155,6 @@ public class GameWorld extends GameEngine {
     public static void main(String[] args) {
         GameWorld tw = new GameWorld();
         tw.runSketch();
-    	
     }
 
     @Override
@@ -183,17 +184,21 @@ public class GameWorld extends GameEngine {
      * functions that initialises all the items which are needed to start the game
      */
     private void initializeObjects(int level) {
-        darkpower = new DarkPower(this, false);         
+        darkpower = new DarkPower(this, 0.2f, true, 3, "darkPower.png");         
         player = new Player(this, jumpSound, darkpower);
         light = new Light(this, player);  
         lightTwo = new Light(this, player);
         batSpawner = new BatSpawner(this, 0.2F);
         fireflySpawner = new FireflySpawner(this, 0.3F);
-        
+        physObject = new LevelPhysicsObject(this, 0.2f, true, 3, "PhysObject.png");         
+        physObject2 = new LevelPhysicsObject(this, 0.2f, true, 3, "PhysObject.png");         
+
         if(level == 1) {
             this.addGameObject(player, 290, 420);
             addGameObject(light, 80, 550);
             addGameObject(lightTwo, 800, 510);
+            addGameObject(physObject, 490, 360);
+            addGameObject(physObject2, 490, 420);
 
         }else if(level == 2) {
             this.addGameObject(player, 320, 420);
