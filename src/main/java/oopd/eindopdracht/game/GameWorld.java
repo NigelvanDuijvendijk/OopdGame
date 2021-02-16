@@ -37,6 +37,8 @@ public class GameWorld extends GameEngine {
     private TextObject startTextDuw;
 	public TextObject timerText;
 
+	private ArrayList<BasicSpawner> spawners = new ArrayList<BasicSpawner>();
+
 	/**
      * Keeps record of the amount of lights in the level if its 0 the game will end
      */
@@ -100,14 +102,14 @@ public class GameWorld extends GameEngine {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0,0},
             {0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0,0},
-            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
-            {0, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0,  0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
 	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -197,12 +199,17 @@ public class GameWorld extends GameEngine {
             this.addGameObject(player, 290, 420);
             addGameObject(light, 80, 550);
             addGameObject(lightTwo, 800, 510);
+//            addGameObject(lightTwo, 40, 400);
             addGameObject(physObject, 490, 360);
             addGameObject(physObject2, 490, 420);
+            spawners.add(fireflySpawner);
+            spawners.add(batSpawner);
 
         }else if(level == 2) {
             this.addGameObject(player, 320, 420);
             addGameObject(light, 120, 550);
+            spawners.add(fireflySpawner);
+            spawners.add(batSpawner);
         }
     } 
     
@@ -287,17 +294,33 @@ public class GameWorld extends GameEngine {
     	}
     }
     
-    public void mousePressed() {
-	    	if(gameState == 0) {
-	    		initializeObjects(1);
-	            gameState = 1;	
-	            deleteStartDashboard();
-	    	}
-	    	if(gameState == 2) {
-	    		gameover = new GameOver(this);
-	    		gameover.triggerReplay();
-	    		initializeObjects(1);
-	    	}
+public void mousePressed() {
+        
+        if (gameState == 0) {
+            initializeObjects(1);
+            gameState = 1;
+            deleteStartDashboard();
+            for (BasicSpawner spawners : spawners) {
+                spawners.startAlarm();
+            }
+            
+        }
+        if (gameState == 2) {
+            gameover = new GameOver(this);
+            gameover.triggerReplay();
+            initializeObjects(1);
+        }
+    }
+    
+    public void addBatSpawner() {
+        spawners.add(batSpawner);
+        batSpawner.startAlarm();
+    }
+    
+    public void removeAllBats() {
+        spawners.clear();
+        spawners.add(fireflySpawner);
+        fireflySpawner.startAlarm();
     }
     
  }

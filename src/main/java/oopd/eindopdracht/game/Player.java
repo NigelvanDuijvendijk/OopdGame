@@ -164,6 +164,14 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
         		colideAngleDarkPower = "none";
         	}
         }
+        if(keyCode == 66) {
+        	world.addBatSpawner();
+        	System.out.println("voeg een spawner toe!");
+
+        }
+        if(keyCode == 82) {
+        	world.removeAllBats();
+        }
     }
     
     public void tileCollisionOccurred(List<CollidedTile> collidedTiles) {

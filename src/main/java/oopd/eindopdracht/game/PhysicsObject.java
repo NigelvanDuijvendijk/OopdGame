@@ -32,18 +32,21 @@ public class PhysicsObject extends SpriteObject {
 		for (GameObject go: collidedGameObjects) {
 			if (go instanceof PhysicsObject) {	
                     float vector = this.getY();
-	                setY(vector - 3.8f);
+	                setY(vector - 7f);
 	                setX(this.getX());
 	                CollidedWithSelf = true;   
-			}
-			if (go instanceof DarkPower) {	
-				world.deleteGameObject(this);
 			}
 			if (go instanceof LevelPhysicsObject) {
 				if(this instanceof DarkPower) {
 					world.deleteGameObject(this);
 				}
 			}
+			if (go instanceof DarkPower) {	
+				if(this instanceof LevelPhysicsObject) {
+					world.deleteGameObject(this);
+				}
+			}
+			
 		}
 	}
     
