@@ -1,7 +1,4 @@
 package oopd.eindopdracht.game;
-
-import java.util.Random;
-
 import nl.han.ica.oopg.alarm.Alarm;
 import nl.han.ica.oopg.alarm.IAlarmListener;
 
@@ -10,41 +7,47 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class FireflySpawner implements IAlarmListener {
-	private Random random;
-	private TutorialWorld world;
-	private Player player;
+public class FireflySpawner extends BasicSpawner implements IAlarmListener {
+
 	private Firefly firefly;
+	private TutorialWorld world;
+	private Random random;
 	/**
      * The speed at which the flys spawn
      */
-	private float flysPerSecond;
-	
+
+
 	/**
 	 * Initialises the firefly spawner.
 	 * @param world the world that the fireflys should be spawned in
 	 * @param fireflysPerSecond the time in which the fireflys should be spawned
 	 */
 	public FireflySpawner(TutorialWorld world, float flysPerSecond) {
-		this.world = world;
-		random = new Random();
-		this.flysPerSecond = flysPerSecond;
-		startAlarm();
+		super(flysPerSecond, world);
+
 	}
-	
+
 	/**
 	 * the alarm that makes the fireflys spawn in the given time
 	 */
-	private void startAlarm() {
-	    Alarm alarm = new Alarm("New Firefly", 1 / flysPerSecond);
+	public void startAlarm() {
+	    Alarm alarm = new Alarm("New Firefly", 1 / getSpawnsPerSecond());
 	    alarm.addTarget(this);
 	    alarm.start();
+
 	}
-	
-	@Override
+
 	public void triggerAlarm(String alarmName) {
-		firefly = new Firefly(world); 
-	    world.addGameObject(firefly, world.width, random.nextInt(world.height));
+		firefly = new Firefly(getWorld());
+	    getWorld().addGameObject(firefly, getWorld().width, getRandom().nextInt(getWorld().height));
 	    startAlarm();
 	}
+
+	@Override
+	public void printYourType() {
+		System.out.println("im a firefly type!");
+	}
+
+
+
 }
