@@ -12,7 +12,7 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  */
 public class BatSpawner implements IAlarmListener {
 	private Random random;
-	private TutorialWorld world;
+	private GameWorld world;
 	private Player player;
 	private Bat bat;
 	/**
@@ -25,7 +25,7 @@ public class BatSpawner implements IAlarmListener {
 	 * @param world the world that the bats should be spawned in
 	 * @param batsPerSecond the time in which the bats should be spawned
 	 */
-	public BatSpawner(TutorialWorld world, float batsPerSecond) {
+	public BatSpawner(GameWorld world, float batsPerSecond) {
 		this.world = world;
 		random = new Random();
 		this.batsPerSecond = batsPerSecond;

@@ -10,13 +10,14 @@ import nl.han.ica.oopg.view.View;
 import oopd.eindopdracht.game.tiles.*;
 import nl.han.ica.oopg.sound.Sound;
 import processing.core.PApplet;
+import java.util.ArrayList;
 
 /**
  * The main world of the game where everything gets added in.
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class TutorialWorld extends GameEngine {
+public class GameWorld extends GameEngine {
     private Player player;
     private DarkPower darkpower;
     private BatSpawner batSpawner;
@@ -33,7 +34,7 @@ public class TutorialWorld extends GameEngine {
     private TextObject startTextPlaats;
     private TextObject startTextDuw;
 	public TextObject timerText;
-	
+
 	/**
      * Keeps record of the amount of lights in the level if its 0 the game will end
      */
@@ -58,6 +59,8 @@ public class TutorialWorld extends GameEngine {
 	  * the standard text size for smaller text on the menus
 	  */
 	public final int STANDARDTEXTSIZESMALL = 20;
+	
+	public int level = 1;
 	 /**
 	  * the tilemap for the main level
 	  */
@@ -83,9 +86,41 @@ public class TutorialWorld extends GameEngine {
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-
-    		 
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},	 
     };
+    
+    public int mainTilesMapLevel2[][] = {
+   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0,0},
+            {0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0,0},
+            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+            {0, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0,0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	   		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},	 
+   };
     /**
      * the location where all the media is saved    
      */
@@ -116,7 +151,7 @@ public class TutorialWorld extends GameEngine {
      */
     
     public static void main(String[] args) {
-        TutorialWorld tw = new TutorialWorld();
+        GameWorld tw = new GameWorld();
         tw.runSketch();
     	
     }
@@ -133,9 +168,8 @@ public class TutorialWorld extends GameEngine {
         setView(view);
         size(worldWidth, worldHeight);
         
-        view.setBackground(loadImage(TutorialWorld.MEDIA_URL.concat("background.gif")));
+        view.setBackground(loadImage(GameWorld.MEDIA_URL.concat("background.gif")));
         initializeTileMap(mainTilesMap);
-        
     }
 
     @Override
@@ -148,21 +182,23 @@ public class TutorialWorld extends GameEngine {
     /**
      * functions that initialises all the items which are needed to start the game
      */
-    private void initializeObjects() {
-        darkpower = new DarkPower(this, false); 
-                
+    private void initializeObjects(int level) {
+        darkpower = new DarkPower(this, false);         
         player = new Player(this, jumpSound, darkpower);
-        this.addGameObject(player, 290, 420);
-        
-        light = new Light(this, player);
-        addGameObject(light, 80, 550);
-        
+        light = new Light(this, player);  
         lightTwo = new Light(this, player);
-        addGameObject(lightTwo, 800, 510);
-        
         batSpawner = new BatSpawner(this, 0.2F);
-        
         fireflySpawner = new FireflySpawner(this, 0.3F);
+        
+        if(level == 1) {
+            this.addGameObject(player, 290, 420);
+            addGameObject(light, 80, 550);
+            addGameObject(lightTwo, 800, 510);
+
+        }else if(level == 2) {
+            this.addGameObject(player, 320, 420);
+            addGameObject(light, 120, 550);
+        }
     } 
     
     /**
@@ -236,16 +272,26 @@ public class TutorialWorld extends GameEngine {
          dashboardStart.deleteGameObject(startTextDuw);
     }
     
+    public void changeLevel(int level) {
+    	if(level == 2) {
+			this.deleteAllGameOBjects();
+    		gameover = new GameOver(this);
+	    	gameover.changeScreen(gameover.gameOverTilesMap, true);
+	    	gameover.changeScreen(mainTilesMapLevel2, false);
+    		initializeObjects(2);
+    	}
+    }
+    
     public void mousePressed() {
 	    	if(gameState == 0) {
-	    		initializeObjects();
+	    		initializeObjects(1);
 	            gameState = 1;	
 	            deleteStartDashboard();
 	    	}
 	    	if(gameState == 2) {
 	    		gameover = new GameOver(this);
 	    		gameover.triggerReplay();
-	    		initializeObjects();
+	    		initializeObjects(1);
 	    	}
     }
     

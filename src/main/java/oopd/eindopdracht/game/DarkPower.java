@@ -17,9 +17,9 @@ import processing.core.PVector;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class DarkPower extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
+public class DarkPower extends PhysicsObject implements ICollidableWithGameObjects, ICollidableWithTiles {
    
-	private TutorialWorld world;
+	private GameWorld world;
     protected Boolean CollidedWithSelf;
     /**
      * The amount of gravity darkpower has. Higher means it drops faster.
@@ -35,8 +35,8 @@ public class DarkPower extends SpriteObject implements ICollidableWithGameObject
     private final int darkPowerDistance = 80;
 
     
-    public DarkPower(TutorialWorld world, boolean collidedWithSelf) {
-        super(new Sprite(TutorialWorld.MEDIA_URL.concat("darkPower.png")));
+    public DarkPower(GameWorld world, boolean collidedWithSelf) {
+        super(new Sprite(GameWorld.MEDIA_URL.concat("darkPower.png")));
         this.world = world;
         this.CollidedWithSelf = false;
         

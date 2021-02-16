@@ -12,7 +12,7 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  */
 public class FireflySpawner implements IAlarmListener {
 	private Random random;
-	private TutorialWorld world;
+	private GameWorld world;
 	private Player player;
 	private Firefly firefly;
 	/**
@@ -25,7 +25,7 @@ public class FireflySpawner implements IAlarmListener {
 	 * @param world the world that the fireflys should be spawned in
 	 * @param fireflysPerSecond the time in which the fireflys should be spawned
 	 */
-	public FireflySpawner(TutorialWorld world, float flysPerSecond) {
+	public FireflySpawner(GameWorld world, float flysPerSecond) {
 		this.world = world;
 		random = new Random();
 		this.flysPerSecond = flysPerSecond;

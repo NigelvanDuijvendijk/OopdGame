@@ -19,11 +19,12 @@ public class Bat extends Animal {
 	 * initialises the bat object
 	 * @param world the world the bat should be added in
 	 */
-	    public Bat(TutorialWorld world) {
-	        super(new Sprite(TutorialWorld.MEDIA_URL.concat("bat.gif")), speed);  
-	    } 
-	    
-	    public void touched() {
-	    	System.out.println("Bat touched");
-	    }
+    public Bat(GameWorld world) {
+        super(new Sprite(GameWorld.MEDIA_URL.concat("bat.gif")), speed);  
+    }
+	
+	@Override
+    public void ifTouched() {
+    	System.out.println("test bad touched");
+    }
 }

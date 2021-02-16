@@ -23,12 +23,12 @@ import processing.core.PVector;
  */
 public class Player extends AnimatedSpriteObject implements ICollidableWithTiles, ICollidableWithGameObjects, IAlarmListener {
 	
-    private TutorialWorld world;
+    private GameWorld world;
 	private DarkPower darkpower;
 	private Firefly firefly;
 	private GameOver gameover;
 	private DarkPower DarkPowerColided;
-	
+	private Animal animal;
 	/**
      * The sound for the player jump action
      */
@@ -68,8 +68,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
      */
     private int tileSize = 40;
  
-    public Player(TutorialWorld world, Sound jumpSound, DarkPower darkpower) {
-        super(new Sprite(TutorialWorld.MEDIA_URL.concat("vampier_animated.png")),2);
+    public Player(GameWorld world, Sound jumpSound, DarkPower darkpower) {
+        super(new Sprite(GameWorld.MEDIA_URL.concat("vampier_animated.png")),2);
         setCurrentFrameIndex(1);
         this.world = world;
         this.jumpSound = jumpSound;
@@ -186,7 +186,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	                DarkPowerColided = (DarkPower) go;
 				}
 				else if(getAngleFrom(go) < 200 ) {
-					 colideAngleDarkPower = "left";
+					colideAngleDarkPower = "left";
 	                this.setX(this.prevX -0.2f);
 	                DarkPowerColided = (DarkPower) go;
 				}
@@ -195,12 +195,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 				}
 			}
 			if (go instanceof Firefly) {	
-				
-				gameover = new GameOver(world);
-				gameover.gameoverActions();
-				
 				firefly = new Firefly(world);
-				firefly.touched();
+				firefly.ifTouched();
 			}
 		}
 	}

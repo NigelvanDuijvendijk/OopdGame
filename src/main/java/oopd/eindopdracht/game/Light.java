@@ -19,14 +19,14 @@ import processing.core.PVector;
  * @version 1.0
  */
 public class Light extends SpriteObject implements ICollidableWithGameObjects, ICollidableWithTiles {
-	  private TutorialWorld world;
+	  private GameWorld world;
 	  private Player player;
 	  private GameOver gameover;
 //      private float gravity = 0.2f;
       private boolean playerDead = false;
       
-	    public Light(TutorialWorld world, Player player) {
-	        super(new Sprite(TutorialWorld.MEDIA_URL.concat("light-small.gif")));
+	    public Light(GameWorld world, Player player) {
+	        super(new Sprite(GameWorld.MEDIA_URL.concat("light-small.gif")));
 	        this.world = world;
 	        this.player = player;
 //	        setGravity(gravity);
@@ -70,9 +70,11 @@ public class Light extends SpriteObject implements ICollidableWithGameObjects, I
 			    	world.deleteGameObject(this);
 			    	world.lightCount--;
 			    	System.out.println(world.lightCount);
-			    	if(world.lightCount == 0) {
+			    	if(world.lightCount == 0 && world.level == 2) {
 			    		gameover = new GameOver(world);
-			    		gameover.gameoverActions();
+			    		gameover.gameoverActions(true);
+			    	}else if(world.lightCount == 0 && world.level == 1){
+			    		world.changeLevel(2);
 			    	}
 				}
 			}

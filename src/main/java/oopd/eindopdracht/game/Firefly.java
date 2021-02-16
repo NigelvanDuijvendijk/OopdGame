@@ -15,16 +15,23 @@ public class Firefly extends Animal {
 	 * the speed at which the firefly moves
 	 */
 	private static int speed = 2;
+	private GameOver gameover;
+	private GameWorld world;
 
 	/**
 	 * initialises the Firefly object
 	 * @param world the world the firefly should be added in
 	 */
-	    public Firefly(TutorialWorld world) {
-	        super(new Sprite(TutorialWorld.MEDIA_URL.concat("firefly.png")), speed);  
-	    } 
-	    
-	    public void touched() {
-	    	System.out.println("Firefly touched");
-	    }
+    public Firefly(GameWorld world) {
+        super(new Sprite(GameWorld.MEDIA_URL.concat("firefly.png")), speed); 
+        this.world = world;
+    } 
+    
+	@Override
+    public void ifTouched() {
+    	gameover = new GameOver(world);
+		gameover.gameoverActions(false);
+		
+		new Firefly(world);
+    }
 }
