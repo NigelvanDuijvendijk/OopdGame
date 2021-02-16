@@ -15,6 +15,7 @@ import nl.han.ica.oopg.objects.SpriteObject;
 import nl.han.ica.oopg.sound.Sound;
 import oopd.eindopdracht.game.tiles.FloorTile;
 import processing.core.PVector;
+import java.util.ArrayList;
 
 /**
  * object that manages everything that has to do with the player such as movement and collisions
@@ -28,6 +29,8 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	private Firefly firefly;
 	private GameOver gameover;
 	private DarkPower DarkPowerColided;
+	private Animal dier;
+	
 	
 	/**
      * The sound for the player jump action
@@ -179,7 +182,6 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
     public void gameObjectCollisionOccurred(List<GameObject> collidedGameObjects) {
 		for (GameObject go: collidedGameObjects) {
 			if (go instanceof DarkPower) {		
-
 				if(getAngleFrom(go) > 200 ) {
 	                colideAngleDarkPower = "right";
 	                this.setX(this.prevX +0.2f);
@@ -194,7 +196,7 @@ public class Player extends AnimatedSpriteObject implements ICollidableWithTiles
 	                this.setY(this.prevY -0.2f);
 				}
 			}
-			if (go instanceof Firefly) {	
+			if (go instanceof Animal) {	
 				
 				gameover = new GameOver(world);
 				gameover.gameoverActions();

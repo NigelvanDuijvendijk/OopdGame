@@ -10,11 +10,10 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class BatSpawner implements IAlarmListener {
-	private Random random;
+public class BatSpawner extends BasicSpawner implements IAlarmListener {
 	private TutorialWorld world;
-	private Player player;
 	private Bat bat;
+	private Random random;
 	/**
      * the speed at which the bats spawn
      */
@@ -26,16 +25,16 @@ public class BatSpawner implements IAlarmListener {
 	 * @param batsPerSecond the time in which the bats should be spawned
 	 */
 	public BatSpawner(TutorialWorld world, float batsPerSecond) {
-		this.world = world;
+		super(batsPerSecond);
 		random = new Random();
-		this.batsPerSecond = batsPerSecond;
+		this.world = world;
 		startAlarm();
 	}
 	
 	/**
 	 * the alarm that makes the bats spawn in the given time
 	 */
-	private void startAlarm() {
+	public void startAlarm() {
 	    Alarm alarm = new Alarm("New Bat", 1 / batsPerSecond);
 	    alarm.addTarget(this);
 	    alarm.start();
@@ -46,5 +45,6 @@ public class BatSpawner implements IAlarmListener {
 	    bat = new Bat(world); 
 	    world.addGameObject(bat, world.width, random.nextInt(world.height));
 	    startAlarm();
+	   
 	}
 }

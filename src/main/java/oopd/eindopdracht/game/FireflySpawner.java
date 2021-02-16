@@ -10,15 +10,13 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class FireflySpawner implements IAlarmListener {
-	private Random random;
-	private TutorialWorld world;
-	private Player player;
+public class FireflySpawner extends BasicSpawner implements IAlarmListener {	
 	private Firefly firefly;
+	private TutorialWorld world;
+	private Random random;
 	/**
      * The speed at which the flys spawn
      */
-	private float flysPerSecond;
 	
 	/**
 	 * Initialises the firefly spawner.
@@ -26,25 +24,25 @@ public class FireflySpawner implements IAlarmListener {
 	 * @param fireflysPerSecond the time in which the fireflys should be spawned
 	 */
 	public FireflySpawner(TutorialWorld world, float flysPerSecond) {
-		this.world = world;
+		super(flysPerSecond);	
 		random = new Random();
-		this.flysPerSecond = flysPerSecond;
+		this.world = world;
 		startAlarm();
 	}
 	
 	/**
 	 * the alarm that makes the fireflys spawn in the given time
 	 */
-	private void startAlarm() {
-	    Alarm alarm = new Alarm("New Firefly", 1 / flysPerSecond);
+	
+	public void startAlarm() {
+	    Alarm alarm = new Alarm("New Firefly", 1 / getSpawnRate());
 	    alarm.addTarget(this);
 	    alarm.start();
 	}
 	
-	@Override
 	public void triggerAlarm(String alarmName) {
 		firefly = new Firefly(world); 
-	    world.addGameObject(firefly, world.width, random.nextInt(world.height));
+	    world.addGameObject(firefly, world.getWorldWidth(), random.nextInt(world.getWorldHeight()));
 	    startAlarm();
 	}
 }

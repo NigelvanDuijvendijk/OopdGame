@@ -7,7 +7,7 @@ import nl.han.ica.oopg.objects.SpriteObject;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class Animal extends SpriteObject {
+public abstract class Animal extends SpriteObject {
 
 	/**
      * initialises a object with a sprite and speed.
@@ -20,7 +20,7 @@ public class Animal extends SpriteObject {
 
 	@Override
 	public void update() {
-		System.out.println("update");
+		
 	}
 	
 	public void touched() {

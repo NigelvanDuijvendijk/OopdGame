@@ -33,6 +33,8 @@ public class TutorialWorld extends GameEngine {
     private TextObject startTextPlaats;
     private TextObject startTextDuw;
 	public TextObject timerText;
+	public Animal[] dier;
+	
 	
 	/**
      * Keeps record of the amount of lights in the level if its 0 the game will end
@@ -83,6 +85,11 @@ public class TutorialWorld extends GameEngine {
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
     		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+    		 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 
     		 
     };
@@ -118,7 +125,7 @@ public class TutorialWorld extends GameEngine {
     public static void main(String[] args) {
         TutorialWorld tw = new TutorialWorld();
         tw.runSketch();
-    	
+         	
     }
 
     @Override
@@ -248,5 +255,13 @@ public class TutorialWorld extends GameEngine {
 	    		initializeObjects();
 	    	}
     }
+
+	public int getWorldWidth() {
+		return worldWidth;
+	}
+
+	public int getWorldHeight() {
+		return worldHeight;
+	}
     
  }
