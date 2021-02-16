@@ -20,7 +20,7 @@ public class Animal extends SpriteObject {
 
 	@Override
 	public void update() {
-		
+		System.out.println("update");
 	}
 	
 	public void touched() {
