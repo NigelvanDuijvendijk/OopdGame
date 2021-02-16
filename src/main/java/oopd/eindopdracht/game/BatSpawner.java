@@ -1,7 +1,4 @@
 package oopd.eindopdracht.game;
-
-import java.util.Random;
-
 import nl.han.ica.oopg.alarm.Alarm;
 import nl.han.ica.oopg.alarm.IAlarmListener;
 
@@ -10,15 +7,13 @@ import nl.han.ica.oopg.alarm.IAlarmListener;
  * @author Nigel van Duijvendijk
  * @version 1.0
  */
-public class BatSpawner implements IAlarmListener {
-	private Random random;
-	private TutorialWorld world;
-	private Player player;
+public class BatSpawner extends BasicSpawner implements IAlarmListener {
+
 	private Bat bat;
 	/**
      * the speed at which the bats spawn
      */
-	private float batsPerSecond;
+	
 	
 	/**
 	 * Initialises the bat spawner.
@@ -26,25 +21,26 @@ public class BatSpawner implements IAlarmListener {
 	 * @param batsPerSecond the time in which the bats should be spawned
 	 */
 	public BatSpawner(TutorialWorld world, float batsPerSecond) {
-		this.world = world;
-		random = new Random();
-		this.batsPerSecond = batsPerSecond;
-		startAlarm();
+		super(batsPerSecond, world);		
 	}
 	
 	/**
 	 * the alarm that makes the bats spawn in the given time
 	 */
-	private void startAlarm() {
-	    Alarm alarm = new Alarm("New Bat", 1 / batsPerSecond);
+	public void startAlarm() {
+	    Alarm alarm = new Alarm("New Bat", 1 / getSpawnsPerSecond());
 	    alarm.addTarget(this);
 	    alarm.start();
 	}
 	
 	@Override
 	public void triggerAlarm(String alarmName) {
-	    bat = new Bat(world); 
-	    world.addGameObject(bat, world.width, random.nextInt(world.height));
+	    bat = new Bat(getWorld()); 
+	    getWorld().addGameObject(bat, getWorld().width, getRandom().nextInt(getWorld().height));
 	    startAlarm();
+	}
+	@Override
+	public void printYourType() {
+		System.out.println("im a bat type!");			
 	}
 }
